@@ -11,14 +11,10 @@ const svg = d3.select("#presdentialpolls")
 .append("g")
   .attr("transform", `translate(${margin.left},${margin.top})`);
 
-// Labels of row and columns
-const myGroups = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
-const myVars = ["v1", "v2", "v3", "v4", "v5", "v6", "v7", "v8", "v9", "v10"]
-
 // Build X scales and axis:
 const x = d3.scaleBand()
   .range([ 0, width ])
-  .domain(myGroups)
+  .domain(myXs)
   .padding(0.01);
 svg.append("g")
   .attr("transform", `translate(0, ${height})`)
@@ -27,7 +23,7 @@ svg.append("g")
 // Build X scales and axis:
 const y = d3.scaleBand()
   .range([ height, 0 ])
-  .domain(myVars)
+  .domain(myYs)
   .padding(0.01);
 svg.append("g")
   .call(d3.axisLeft(y));
@@ -68,15 +64,16 @@ const myColor = d3.scaleLinear()
 
   // add the squares
   svg.selectAll()
-    .data(data, function(d) {return d.group+':'+d.variable;})
+    .data(data2, function(d) {return d.x+':'+d.y;})
     .enter()
     .append("rect")
-      .attr("x", function(d) { return x(d.group) })
-      .attr("y", function(d) { return y(d.variable) })
+      .attr("x", function(d) { return x(d.x) })
+      .attr("y", function(d) { return y(d.y) })
       .attr("width", x.bandwidth() )
       .attr("height", y.bandwidth() )
       .style("fill", function(d) { return myColor(d.value)} )
     .on("mouseover", mouseover)
     .on("mousemove", mousemove)
     .on("mouseleave", mouseleave)
+// console.log(data2)
 // })

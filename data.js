@@ -1,13 +1,21 @@
 
-d3.csv("https://patrickmugayajoel.github.io/d3/2021_presidential_by_polling_test.csv").then( function(data) {
+
+// Labels of row and columns
+const myXs = []
+const myYs = []
+let data2 = []
+
+    d3.csv("https://patrickmugayajoel.github.io/d3/2021_presidential_by_polling_test.csv").then( function(data) {
         
     data = data.filter(function (elm) {
         return !elm.Station.includes("Total") && !elm.Station.includes("Station");
     })
 
     var i = data.length
-    let data2 = []
+    const lengt = data.length
+    const rt = parseInt(Math.sqrt(30));
     data2.columns = ['KYAGULANYI SSENTAMU ROBERT', 'Station', 'Reg.Voters', 'Valid Votes', 'Invalid Votes', 'Total Votes']
+    let x = 0;
     while (i--) {
         data2.push(data2.columns.reduce((obj, key) => {
             if (key == 'Station') {
@@ -20,8 +28,21 @@ d3.csv("https://patrickmugayajoel.github.io/d3/2021_presidential_by_polling_test
             return obj;
         }, {}));
         data.splice(i, 1);
-    }
 
+        if((i%rt) == 0) {
+            if(x==rt) {
+                x = 0
+            } else {
+                x=x+1
+            }
+        }
+
+        data2[lengt - (i+1)]['x'] = x
+        data2[lengt - (i+1)]['y'] = i%rt
+        myXs.push(x)
+        myYs.push(i%rt)
+
+    }
 })
 
 // [
