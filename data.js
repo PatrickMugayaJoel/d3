@@ -1,29 +1,28 @@
 
-d3.csv("https://patrickmugayajoel.github.io/d3/2021_presidential_by_polling.csv").then( function(data) {
-    console.log(data)
-})
+d3.csv("https://patrickmugayajoel.github.io/d3/2021_presidential_by_polling_test.csv").then( function(data) {
+        
+    data = data.filter(function (elm) {
+        return !elm.Station.includes("Total") && !elm.Station.includes("Station");
+    })
 
-data.filter(function (elm) {
-    return !elm.Station.includes("Total") &&
-        !elm.Station.includes("Station");
-})
-
-const allowed = ['Parish', 'Station', 'Reg.Voters', 'KYAGULANYI SSENTAMU ROBERT', 'Valid Votes', 'Invalid Votes', 'Total Votes'];
-
-var i = data.length
-while (i--) {
-    ...
-    if (...) { 
+    var i = data.length
+    let data2 = []
+    data2.columns = ['KYAGULANYI SSENTAMU ROBERT', 'Station', 'Reg.Voters', 'Valid Votes', 'Invalid Votes', 'Total Votes']
+    while (i--) {
+        data2.push(data2.columns.reduce((obj, key) => {
+            if (key == 'Station') {
+                obj[key] = data[i][key].replace(/[^a-zA-Z]/g,"");
+            } else if(data[i][key].includes("%")) {
+                obj[key] = data[i][key].substring(0, data[i][key].length - 1).split(" ");
+            } else {
+                obj[key] = data[i][key];
+            }
+            return obj;
+        }, {}));
         data.splice(i, 1);
-    } 
-}
+    }
 
-// loop this for every element in the data array while poping objects off
-// use the while above to do this
-const filtered = allowed.reduce((obj, key) => {
-    obj[key] = data[key];
-    return obj;
-}, {});
+})
 
 // [
 //     {
