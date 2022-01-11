@@ -1,49 +1,19 @@
 
 
-// Labels of row and columns
-const myXs = []
-const myYs = []
+let data1 = [];
 let data2 = []
+let rt = 0;
+const cadates = [
+    'KYAGULANYI SSENTAMU ROBERT','AMURIAT OBOI PATRICK','KABULETA KIIZA JOSEPH',
+    'KALEMBE NANCY LINDA','KATUMBA JOHN','MAO NORBERT','MAYAMBALA WILLY','MUGISHA MUNTU GREGG',
+    'MWESIGYE FRED','TUMUKUNDE HENRY KAKURUGU','YOWERI MUSEVENI TIBUHABURWA KAGUTA'
+]
 
-    d3.csv("https://patrickmugayajoel.github.io/d3/2021_presidential_by_polling_test.csv").then( function(data) {
-        
-    data = data.filter(function (elm) {
+d3.csv("https://patrickmugayajoel.github.io/d3/2021_presidential_by_polling.csv").then(function(data) {     
+    data1 = data.filter(function (elm) {
         return !elm.Station.includes("Total") && !elm.Station.includes("Station");
     })
-
-    var i = data.length
-    const lengt = data.length
-    const rt = parseInt(Math.sqrt(30));
-    data2.columns = ['KYAGULANYI SSENTAMU ROBERT', 'Station', 'Reg.Voters', 'Valid Votes', 'Invalid Votes', 'Total Votes']
-    let x = 0;
-    while (i--) {
-        data2.push(data2.columns.reduce((obj, key) => {
-            if (key == 'Station') {
-                obj[key] = data[i][key].replace(/[^a-zA-Z]/g,"");
-            } else if(data[i][key].includes("%")) {
-                obj[key] = data[i][key].substring(0, data[i][key].length - 1).split(" ");
-            } else {
-                obj[key] = data[i][key];
-            }
-            return obj;
-        }, {}));
-        data.splice(i, 1);
-
-        if((i%rt) == 0) {
-            if(x==rt) {
-                x = 0
-            } else {
-                x=x+1
-            }
-        }
-
-        data2[lengt - (i+1)]['x'] = x
-        data2[lengt - (i+1)]['y'] = i%rt
-        myXs.push(x)
-        myYs.push(i%rt)
-
-    }
-})
+}).then(myfc)
 
 // [
 //     {
