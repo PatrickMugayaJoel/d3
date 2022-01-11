@@ -1,4 +1,5 @@
 myfc = cad => {// set the dimensions and margins of the graph
+  let data2 = [];
   cad = cad || 0;
   var i = data1.length
   const lengt = data1.length
@@ -17,7 +18,7 @@ myfc = cad => {// set the dimensions and margins of the graph
           return obj;
       }, {}));
   
-      data1.splice(i, 1);
+      // data1.splice(i, 1);
   
       if((i%rt) == 0) {
           if(the_x==rt) {
@@ -31,15 +32,15 @@ myfc = cad => {// set the dimensions and margins of the graph
   }
   
   const margin = {top: 30, right: 30, bottom: 30, left: 30},
-    width = 450 - margin.left - margin.right,
-    height = 450 - margin.top - margin.bottom;
+    width = 1300 - margin.left - margin.right, // screen.availWidth
+    height = 690 - margin.top - margin.bottom; //screen.availHeight
 
   // append the svg object to the body of the page
-  const svg = d3.select("#presdentialpolls")
+  const svg = d3.select("#presdentialpolls").html("")
   .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
-  .append("g")
+    .append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
   // Build X scales and axis:

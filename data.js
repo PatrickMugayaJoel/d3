@@ -1,7 +1,6 @@
 
 
 let data1 = [];
-let data2 = []
 let rt = 0;
 const cadates = [
     'KYAGULANYI SSENTAMU ROBERT','AMURIAT OBOI PATRICK','KABULETA KIIZA JOSEPH',
@@ -9,13 +8,22 @@ const cadates = [
     'MWESIGYE FRED','TUMUKUNDE HENRY KAKURUGU','YOWERI MUSEVENI TIBUHABURWA KAGUTA'
 ]
 
-d3.csv("https://patrickmugayajoel.github.io/d3/2021_presidential_by_polling.csv").then(function(data) {     
+const clicked = ev => {
+    myfc(parseInt(ev.target.name));
+}
+const persons = d3.select("#persons")
+cadates.forEach(function(currentValue, index){
+    persons.append('a').attr('href', '#').attr('name', index).on("click", clicked).html(currentValue)
+})
+
+
+d3.csv("https://patrickmugayajoel.github.io/d3/2021_presidential_by_polling_test.csv").then(function(data) {     
     data1 = data.filter(function (elm) {
-        return !elm.Station.includes("Total") && !elm.Station.includes("Station");
+        return !elm.Station.includes("Total") && !elm.Station.includes("Station") && (parseInt(elm["Valid Votes"])>0);
     })
 }).then(myfc)
 
-// [
+// [ Valid Votes Reg.Voters
 //     {
 //       "group": "A",
 //       "variable": "v1",
