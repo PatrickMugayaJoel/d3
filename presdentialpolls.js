@@ -36,11 +36,11 @@ myfc = cad => {// set the dimensions and margins of the graph
   }
   
   const margin = {top: 10, right: 10, bottom: 30, left: 30},
-    width = (screen.availWidth * 0.75) - margin.left - margin.right,
+    width = (screen.availWidth * 0.78) - margin.left - margin.right,
     height = (screen.availHeight * 0.80) - margin.top - margin.bottom;
 
   // append the svg object to the body of the page
-  const svg = d3.select("#presdentialpolls").html("<h2>"+ cadates[cad] + "'s Polling Stations Results</h2>")
+  const svg = d3.select("#presdentialpolls").html("<h2>"+ cadates[cad] + "'s 2021 Presidential Elections Polling Stations Results</h2>")
   .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
