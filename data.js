@@ -11,13 +11,13 @@ const cadates = [
 const clicked = ev => {
     myfc(parseInt(ev.target.name));
 }
-const persons = d3.select("#persons")
+const persons = d3.select("#persons").select("ul")
 cadates.forEach(function(currentValue, index){
-    persons.append('a').attr('href', '#').attr('name', index).on("click", clicked).html(currentValue)
+    persons.append('li').append('a').attr('href', '#').attr('name', index).on("click", clicked).html(currentValue)
 })
 
 
-d3.csv("https://patrickmugayajoel.github.io/d3/2021_presidential_by_polling_test.csv").then(function(data) {     
+d3.csv("https://patrickmugayajoel.github.io/d3/2021_presidential_by_polling.csv").then(function(data) {     
     data1 = data.filter(function (elm) {
         return !elm.Station.includes("Total") && !elm.Station.includes("Station") && (parseInt(elm["Valid Votes"])>0);
     })

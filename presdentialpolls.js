@@ -9,11 +9,15 @@ myfc = cad => {// set the dimensions and margins of the graph
   while (i--) {
       data2.push(data2.columns.reduce((obj, key) => {
           if (key == 'Station') {
-              obj[key] = data1[i][key].replace(/[^a-zA-Z]/g,"");
+              obj[key] = data1[i][key]//.replace(/[^a-zA-Z]/g,"");
           } else if(data1[i][key].includes("%")) {
               obj[key] = data1[i][key].substring(0, data1[i][key].length - 1).split(" ");
           } else {
-              obj[key] = data1[i][key];
+              if((key == cadates[cad]) && data1[i]["Total Votes"]) {
+                obj[key] = [data1[i][key], (parseInt(data1[i][key])/parseInt(data1[i]["Total Votes"]) * 100).toFixed(2)]
+              } else {
+                obj[key] = data1[i][key];
+              }
           }
           return obj;
       }, {}));
@@ -31,12 +35,12 @@ myfc = cad => {// set the dimensions and margins of the graph
       data2[lengt - (i+1)]['y'] = i%rt
   }
   
-  const margin = {top: 30, right: 30, bottom: 30, left: 30},
-    width = 1300 - margin.left - margin.right, // screen.availWidth
-    height = 690 - margin.top - margin.bottom; //screen.availHeight
+  const margin = {top: 10, right: 10, bottom: 30, left: 30},
+    width = (screen.availWidth * 0.75) - margin.left - margin.right,
+    height = (screen.availHeight * 0.80) - margin.top - margin.bottom;
 
   // append the svg object to the body of the page
-  const svg = d3.select("#presdentialpolls").html("")
+  const svg = d3.select("#presdentialpolls").html("<h2>"+ cadates[cad] + "'s Polling Stations Results</h2>")
   .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)

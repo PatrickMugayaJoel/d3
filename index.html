@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<title>D3: Elections visualization Assignment</title>
 
-		<!-- <link rel="stylesheet" href="styles.css"> -->
+		<link rel="stylesheet" href="styles.css">
 		          
 		<!-- Load d3.js -->
 		<script src="d3.v6.js"></script>
@@ -12,8 +12,10 @@
 
 	<body>
 		<!-- Create a div where the graph will take place -->
-		<div id="presdentialpolls"><h2>Presdential Polling Station Results</h2></div>
-		<div id="persons">Here</div>
+		<div id="container">
+			<div id="presdentialpolls"></div>
+			<div id="persons"><ul></ul></div>
+		</div>
 
 		<script src="presdentialpolls.js"></script>
 		<script src="data.js"></script>
