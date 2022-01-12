@@ -1,9 +1,3 @@
-
-	// set the dimensions and margins of the graph
-	const margin = {top: 30, right: 30, bottom: 100, left: 60},
-	    width = 460 - margin.left - margin.right,
-	    height = 400 - margin.top - margin.bottom;
-
 	const svgs = [];
 	const axises1 = [];
 	const axises2 = [];
