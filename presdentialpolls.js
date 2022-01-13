@@ -8,9 +8,7 @@ myfc = cad => {// set the dimensions and margins of the graph
   let the_x = 0;
   while (i--) {
       data2.push(data2.columns.reduce((obj, key) => {
-          if (key == 'Station') {
-              obj[key] = data1[i][key]//.replace(/[^a-zA-Z]/g,"");
-          } else if(data1[i][key].includes("%")) {
+          if(data1[i][key].includes("%")) {
               obj[key] = data1[i][key].substring(0, data1[i][key].length - 1).split(" ");
           } else {
               if((key == cadates[cad]) && data1[i]["Total Votes"]) {
