@@ -8,7 +8,7 @@
     text-decoration: none;
 }
 
-#presdentialpolls {
+#presdentialpolls, #mps {
     float: right;
     width: 80%;
     /* height: 90vh; */
@@ -18,11 +18,16 @@
     text-align: center;
 }
 
-#presdentialpolls svg {
+#presdentialpolls svg, #mps svg {
     background-color: #cecdc2;
 }
 
 #container {
     width: 100%;
     overflow: hidden;
+}
+
+#elist {
+    max-height: 200px;
+    overflow-y: scroll;
 }
