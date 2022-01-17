@@ -1,7 +1,7 @@
 // set the dimensions and margins of the graph
 var margin = {top: 10, right: 30, bottom: 40, left: 50},
-    width = 520 - margin.left - margin.right,
-    height = 520 - margin.top - margin.bottom;
+    width = 1020 - margin.left - margin.right,
+    height = 720 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
 var Svg = d3.select("#my_dataviz2")
@@ -15,11 +15,11 @@ var Svg = d3.select("#my_dataviz2")
 
 
 //Read the data
-d3.csv("iris.csv", function(data) {
+d3.csv("MPS_RESULTS_2021-converted.csv", function(data) {
 
   // Add X axis
   var x = d3.scaleLinear()
-    .domain([4*0.95, 8*1.001])
+    .domain([0, 2000])
     .range([ 0, width ])
   Svg.append("g")
     .attr("transform", "translate(0," + height + ")")
@@ -28,7 +28,7 @@ d3.csv("iris.csv", function(data) {
 
   // Add Y axis
   var y = d3.scaleLinear()
-    .domain([-0.001, 9*1.01])
+    .domain([0, 120000])
     .range([ height, 0])
     .nice()
   Svg.append("g")
@@ -43,7 +43,7 @@ d3.csv("iris.csv", function(data) {
       .attr("text-anchor", "end")
       .attr("x", width)
       .attr("y", height + margin.top + 20)
-      .text("Sepal Length");
+      .text("Total Polling Station Votes");
 
   // Y axis label:
   Svg.append("text")
@@ -51,12 +51,42 @@ d3.csv("iris.csv", function(data) {
       .attr("transform", "rotate(-90)")
       .attr("y", -margin.left+20)
       .attr("x", -margin.top)
-      .text("Petal Length")
+      .text("Votes")
 
   // Color scale: give me a specie name, I return a color
   var color = d3.scaleOrdinal()
     .domain(["setosa", "versicolor", "virginica" ])
-    .range([ "#402D54", "#D18975", "#8FD175"])
+    .range([ "#FFFF00", "#0000FF", "#ff0000", "#808080", "#964B00", "#ffa500", "#402D54", "#D18975", "#8FD175", "#000000", "#000000"])
+
+  // create a tooltip
+  const tooltip = d3.select("#my_dataviz2")
+    .append("div")
+    .style("opacity", 0)
+    .attr("class", "tooltip")
+    .style("background-color", "white")
+    .style("border", "solid")
+    .style("border-width", "2px")
+    .style("border-radius", "5px")
+    .style("padding", "5px")
+    .style("position", "absolute")
+
+  // Three function that change the tooltip when user hover / move / leave a cell
+  const mouseover = function(event,d) {
+    tooltip.style("opacity", 1)
+  }
+  const mousemove = function(d, xx, event) {
+    console.log(event[xx])
+    tooltip
+      .html(
+        "<table><tr><td><b>Candidate's Votes</b></td><td>" + d.Candidate + "</td></tr>" +
+        "<tr><td><b>Votes</b></td><td>" + d.Votes + "</td></tr>"
+        )
+      .style("left", event[xx].attributes.cx + 15 + "px")
+      .style("top", event[xx].attributes.cy + "px")
+  }
+  const mouseleave = function(d) {
+    // tooltip.style("opacity", 0)
+  }
 
   // Add dots
   Svg.append('g')
@@ -64,9 +94,11 @@ d3.csv("iris.csv", function(data) {
     .data(data)
     .enter()
     .append("circle")
-      .attr("cx", function (d) { return x(d.Sepal_Length); } )
-      .attr("cy", function (d) { return y(d.Petal_Length); } )
+      .attr("cx", function (d) { return x(d.ID); } )
+      .attr("cy", function (d) { return y(d.Votes); } )
       .attr("r", 5)
-      .style("fill", function (d) { return color(d.Species) } )
-
+      .style("fill", function (d) { return color(d.Constituency) } )
+      .on("mouseover", mouseover)
+      .on("mousemove", mousemove)
+      .on("mouseleave", mouseleave)
 })
