@@ -15,7 +15,7 @@ var Svg = d3.select("#my_dataviz2")
 
 
 //Read the data
-d3.csv("2021PresidentialEllections.csv", function(data) {
+d3.csv("MPS_RESULTS_2021-converted.csv", function(data) {
 
   // Add X axis
   var x = d3.scaleLinear()
@@ -94,10 +94,10 @@ d3.csv("2021PresidentialEllections.csv", function(data) {
     .data(data)
     .enter()
     .append("circle")
-      .attr("cx", function (d) { return x(d.Total); } )
+      .attr("cx", function (d) { return x(d.ID); } )
       .attr("cy", function (d) { return y(d.Votes); } )
       .attr("r", 5)
-      .style("fill", function (d) { return color(d.Candidate) } )
+      .style("fill", function (d) { return color(d.Constituency) } )
       .on("mouseover", mouseover)
       .on("mousemove", mousemove)
       .on("mouseleave", mouseleave)
