@@ -3,23 +3,32 @@ var margin = {top: 10, right: 30, bottom: 40, left: 50},
     width = 1250 - margin.left - margin.right,
     height = 640 - margin.top - margin.bottom;
 
-// append the svg object to the body of the page
-var Svg = d3.select("#my_dataviz2")
-  .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform",
-          "translate(" + margin.left + "," + margin.top + ")")
-
+var data = [];
+let xaxis = 140000;
+let yaxis = 70000;
 
 
 //Read the data
-d3.csv("2021PresidentialEllections.csv", function(data) {
+d3.csv("2021PresidentialEllectionsnozero.csv", function(dat) {
+  xaxis = 140000;
+  yaxis = 70000;
+  data = dat;draw(xaxis, yaxis);
+});
+
+const draw = (X_Axis, Y_Axis) => {
+  
+// append the svg object to the body of the page
+var Svg = d3.select("#my_dataviz2").html("")
+.append("svg")
+  .attr("width", width + margin.left + margin.right)
+  .attr("height", height + margin.top + margin.bottom)
+.append("g")
+  .attr("transform",
+        "translate(" + margin.left + "," + margin.top + ")")
 
   // Add X axis
   var x = d3.scaleLinear()
-    .domain([0, 420])
+    .domain([0, X_Axis])
     .range([ 0, width ])
   Svg.append("g")
     .attr("transform", "translate(0," + height + ")")
@@ -28,7 +37,7 @@ d3.csv("2021PresidentialEllections.csv", function(data) {
 
   // Add Y axis
   var y = d3.scaleLinear()
-    .domain([0, 110000])
+    .domain([0, Y_Axis])
     .range([ height, 0])
     .nice()
   Svg.append("g")
@@ -68,7 +77,8 @@ d3.csv("2021PresidentialEllections.csv", function(data) {
     .style("border-width", "2px")
     .style("border-radius", "5px")
     .style("padding", "5px")
-    .style("position", "absolute")
+    .style("width", "300px")
+    .style("float", "right")
 
   // Three function that change the tooltip when user hover / move / leave a cell
   const mouseover = function(event,d) {
@@ -101,4 +111,14 @@ d3.csv("2021PresidentialEllections.csv", function(data) {
       .on("mouseover", mouseover)
       .on("mousemove", mousemove)
       .on("mouseleave", mouseleave)
-})
+}
+
+d3.select('#xaxis').on('change', function() {
+  xaxis = this.value;
+  draw(xaxis, yaxis);
+});
+
+d3.select('#yaxis').on('change', function() {
+  yaxis = this.value;
+  draw(xaxis, yaxis);
+});

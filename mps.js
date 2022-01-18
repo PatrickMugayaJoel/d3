@@ -8,12 +8,29 @@ let data2 = {};
 const myfcn = (grpNm) => {
   grpNm = grpNm || "AMURIA";
 
-  const svg = d3.select("#mps").html("")
+  const svg = d3.select("#mps").html("<h2 style='text-align: center;width:100%;'>2021 Parliamentary Elections by Constituency</h2>")
     .append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
     .append("g")
       .attr("transform",`translate(${margin.left},${margin.top})`);
+
+      
+  // Add X axis label:
+  svg.append("text")
+  .attr("text-anchor", "end")
+  .attr("x", width)
+  .attr("y", height + margin.top + 20)
+  .text("Constituency");
+
+// Y axis label:
+svg.append("text")
+  .attr("text-anchor", "end")
+  .attr("transform", "rotate(-90)")
+  .attr("y", -margin.left+20)
+  .attr("x", -margin.top)
+  .text("Candidate Votes")
+
 
   // create a tooltip
   const tooltip = d3.select("#mps")
@@ -58,7 +75,7 @@ const myfcn = (grpNm) => {
   // color palette = one color per subgroup
   const color = d3.scaleOrdinal()
   .domain(subgroups)
-  .range(['#e41a1c','#377eb8','#4daf4a'])
+  .range(['#FF9B4E'])
 
   // Three function that change the tooltip when user hover / move / leave a cell
   const mouseover = function(event,d) {

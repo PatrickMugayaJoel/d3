@@ -3,13 +3,31 @@
 	const axises2 = [];
 
 	Object.keys(candidate_votes_per_year).map(function(key1, index1) {
-		// append the svg object to the body of the page
-		svgs.push(d3.select("#x"+key1)
-		  .append("svg")
-		    .attr("width", width + margin.left + margin.right)
-		    .attr("height", height + margin.top + margin.bottom)
-		  .append("g")
-		    .attr("transform", `translate(${margin.left},${margin.top})`));
+
+		let svg = d3.select("#x"+key1)
+		.append("svg")
+		  .attr("width", width + margin.left + margin.right)
+		  .attr("height", height + margin.top + margin.bottom)
+		.append("g")
+		  .attr("transform", `translate(${margin.left},${margin.top})`);
+
+  // Add X axis label:
+  svg.append("text")
+  .attr("text-anchor", "end")
+  .attr("x", width)
+  .attr("y", height + margin.top + 20)
+  .text("Candidate");
+
+// Y axis label:
+svg.append("text")
+  .attr("text-anchor", "end")
+  .attr("transform", "rotate(-90)")
+  .attr("y", -margin.left+12)
+  .attr("x", -margin.top)
+  .text("Total Votes")
+
+  // append the svg object to the body of the page
+  svgs.push(svg);
 
 		// X axis
 		axises1.push(d3.scaleBand()

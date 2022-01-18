@@ -4,7 +4,33 @@
 <!-- Load d3.js -->
 <script src="https://d3js.org/d3.v4.js"></script>
 
-<!-- Create a div where the graph will take place -->
-<div id="my_dataviz2"></div>
+<h1>Presidential elections 2021 by polling stations</h1>
 
+<!-- Create a div where the graph will take place -->
+<div id="my_dataviz2">Loading Please wait..</div>
+
+<div style="width: 100%;">
+<form style="float: left;">
+    <label for="xaxis">X-Axis</label>
+    <input type="range" min="300" max="250000" step="20" id="xaxis" value="180000" oninput="selected_x.value = xaxis.value">
+    <output name="selected_x" id="selected_x">180000</output>
+</form>
+
+<form style="float: left; margin: 0px 30px;">
+    <label for="yaxis">Y-Axis</label>
+    <input type="range" min="100" max="120000" step="20" id="yaxis" value="70000" oninput="selected_y.value = yaxis.value">
+    <output name="selected_y" id="selected_y">70000</output>
+</form>
+
+<a style="float: left;" href="index2.html">Next</a>
+</div>
+<div style="width: 100%; text-align: left; margin: 70px 20px;">
+<h2>Story</h2>
+<p>
+    The graph above, shows Candidate votes by Polling Stations.
+    The circle colours represent Candidates. Note: the colours do not indicate political party colour.<br>
+    The viewer can quickly observe that a big number of colours(candicates) does not go beyond the 20,000 votes range in the Y-Axis.<br>
+    With some being bearly seen. eg Yellow and Green.
+</p>
+</div>
 <script src="index.js"></script>

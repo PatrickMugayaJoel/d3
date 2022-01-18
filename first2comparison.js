@@ -4,6 +4,21 @@ const svg = d3.select("#firstandsecond")
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
     .attr("transform",`translate(${margin.left},${margin.top})`);
+      
+  // Add X axis label:
+  svg.append("text")
+  .attr("text-anchor", "end")
+  .attr("x", width)
+  .attr("y", height + margin.top + 20)
+  .text("Year");
+
+// Y axis label:
+svg.append("text")
+  .attr("text-anchor", "end")
+  .attr("transform", "rotate(-90)")
+  .attr("y", -margin.left+15)
+  .attr("x", -margin.top)
+  .text("Percentage Votes")
 
 // List of subgroups = header of the csv files = soil condition here
 const subgroups = comparison_data.columns.slice(1)

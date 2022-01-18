@@ -33,7 +33,7 @@ myfc = cad => {// set the dimensions and margins of the graph
       data2[lengt - (i+1)]['y'] = i%rt
   }
   
-  const margin = {top: 10, right: 10, bottom: 30, left: 30},
+  const margin = {top: 10, right: 10, bottom: 30, left: 40},
     width = (screen.availWidth * 0.78) - margin.left - margin.right,
     height = (screen.availHeight * 0.80) - margin.top - margin.bottom;
 
@@ -44,6 +44,21 @@ myfc = cad => {// set the dimensions and margins of the graph
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
+      
+  // Add X axis label:
+  svg.append("text")
+  .attr("text-anchor", "end")
+  .attr("x", width)
+  .attr("y", height + margin.top + 20)
+  .text("Polling station X-ID");
+
+// Y axis label:
+svg.append("text")
+  .attr("text-anchor", "end")
+  .attr("transform", "rotate(-90)")
+  .attr("y", -margin.left+15)
+  .attr("x", -margin.top)
+  .text("Polling station Y-ID")
 
   // Build X scales and axis:
   const x = d3.scaleBand()
