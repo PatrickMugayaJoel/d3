@@ -82,9 +82,6 @@ svg.append("text")
     .range(["#ffff", "#4C4E52"])
     .domain([1,100])
 
-  //Read the data
-  // d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/heatmap_data.csv").then( function(data) {
-
   // create a tooltip
   const tooltip = d3.select("#presdentialpolls")
     .append("div")
