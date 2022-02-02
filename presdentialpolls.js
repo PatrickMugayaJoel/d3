@@ -50,7 +50,7 @@ myfc = cad => {// set the dimensions and margins of the graph
   .attr("text-anchor", "end")
   .attr("x", width)
   .attr("y", height + margin.top + 20)
-  .text("Polling station X-ID");
+  .text("Polling station");
 
 // Y axis label:
 svg.append("text")
@@ -58,24 +58,24 @@ svg.append("text")
   .attr("transform", "rotate(-90)")
   .attr("y", -margin.left+15)
   .attr("x", -margin.top)
-  .text("Polling station Y-ID")
+  .text("Polling station")
 
   // Build X scales and axis:
   const x = d3.scaleBand()
     .range([ 0, width ])
     .domain([...Array(rt).keys()])
     .padding(0.01);
-  svg.append("g")
-    .attr("transform", `translate(0, ${height})`)
-    .call(d3.axisBottom(x))
+  // svg.append("g")
+  //   .attr("transform", `translate(0, ${height})`)
+  //   .call(d3.axisBottom(x))
 
   // Build X scales and axis:
   const y = d3.scaleBand()
     .range([ height, 0 ])
     .domain([...Array(rt).keys()])
     .padding(0.01);
-  svg.append("g")
-    .call(d3.axisLeft(y));
+  // svg.append("g")
+  //   .call(d3.axisLeft(y));
 
   // Build color scale
   const myColor = d3.scaleLinear()
